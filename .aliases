@@ -3,10 +3,14 @@
 # Use neovim instead of vim if it's installed.
 command -v nvim > /dev/null || alias vim="nvim"
 
+# Use podman over docker if installed.
+command -v podman > /dev/null || alias docker="podman"
+
 # We use git *a lot*, create aliases for it.
-alias g="git"
+alias g=". gitdate && git" # Run `gitdate` before calling `git` to mask TZ.
 # ...
 
 # Some `ls` helpers.
 alias l="ls -lhF --color"
 alias la="ls -alhF --color"
+alias ls="command ls --color"

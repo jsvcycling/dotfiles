@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Use bash as our preferred shell.
+shell="$(which bash)";
+export SHELL="$shell";
+
+# Use vim (or neovim, if installed) as our default editor.
+export EDITOR=vim;
+export EDITOR=vim;
+export TERMINAL="urxvt";
+
+# Increase bash history file size.
+export HISTSIZE=5000000;
+export HISTFILESIZE=$HISTSIZE;
+export HISTCONTROL=ignoredups;
+
+# Always use US English with UTF-8 where possible.
+export LANG="en_US.UTF-8";
+export LC_ALL=$LANG;

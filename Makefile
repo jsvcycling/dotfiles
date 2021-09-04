@@ -1,9 +1,8 @@
 SHELL := bash
 
-.PHONY: all configs
+.PHONY: all configs scripts
 
-
-all: configs
+all: configs scripts
 
 configs:
 	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".git" -not -name ".*.swp" -not -name ".gnupg"); do \
@@ -11,3 +10,8 @@ configs:
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
 
+scripts:
+	for file in $(shell find $(CURDIR)/bin); do \
+		f=$$(basename $$file); \
+		ln -sfn $$file $(HOME)/.local/bin/$$f; \
+	done; \
