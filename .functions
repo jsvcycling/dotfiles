@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Retrieve weather for the current location.
+weather() {
+  if [[ $1 == "help" ]]; then
+    printf "usage:\n"
+    printf "\tweather       - current weather and forecast\n"
+    printf "\tweather graph - weather graphs\n"
+    return 1
+  fi
+
+  if [[ $1 == "graph" ]]; then
+    curl https://v2.wttr.in/
+  else
+    curl https://wttr.in/
+  fi
+}
+
+# Retrieve current public IP address.
+myip() {
+  if [[ $1 == "help" ]]; then
+    printf "usage:\n"
+    printf "\tmyip - public IPv4 address\n"
+    return 1
+  fi
+}
