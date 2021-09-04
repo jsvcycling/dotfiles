@@ -1,8 +1,70 @@
 #!/bin/bash
 
+# Generate a base64 data-url of a file.
+dataurl() {
+  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+    printf "usage:\n"
+    printf "\tdataurl [FILE] - generate a base64 data-url for FILE\n"
+    return 1
+  fi
+
+  local mimeType=$(file -b --mime-type "$1")
+  
+  if [[ $mimeType == text/* ]]; then
+    mimeType="${mimeType};charset=utf-8"
+  fi
+
+  data=$(openssl base64 -in "$1" | tr -d '\n')
+  printf "data:${mimeType};base64,${data}\n"
+}
+
+# Check if a URL is accessible.
+isup() {
+  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+    printf "usage:\n"
+    printf "\tisup [URL] - check if URL is reachable\n"
+    return 1
+  fi
+
+  if curl -s --head --request GET "$1" | grep "200 OK" > /dev/null; then
+    printf "$1 is down\n"
+  else
+    printf "$1 is up\n"
+  fi
+}
+
+
+# Retrieve current public IP address.
+pubip() {
+  if [[ $1 == "-h" || $1 == "--help" ]]; then
+    printf "usage:\n"
+    printf "\tmyip - public IPv4 address\n"
+    return 1
+  fi
+
+  curl http://icanhazip.org/
+}
+
+# Compress a file or directory into a .tar.gz.
+targz() {
+  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+    printf "usage:\n"
+    printf "\t targz [FILE] - create a new .tar.gz file for FILE\n"
+    return 1
+  fi
+
+  local tmpFile="${1%/}.tar"
+  tar -cvf "${tmpFile}" "${1}" || return 1
+
+  printf "Compressing .tar using \`gzip\`...\n"
+  gzip -v "${tmpFile}" || return 1
+  [ -f "${tmpFile}" ] && rm "${tmpFile}"
+  printf "${tmpFile}.gz created successfully.\n"
+}
+
 # Retrieve weather for the current location.
 weather() {
-  if [[ $1 == "help" ]]; then
+  if [[ $1 == "-h" || $1 == "--help" ]]; then
     printf "usage:\n"
     printf "\tweather       - current weather and forecast\n"
     printf "\tweather graph - weather graphs\n"
@@ -13,14 +75,5 @@ weather() {
     curl https://v2.wttr.in/
   else
     curl https://wttr.in/
-  fi
-}
-
-# Retrieve current public IP address.
-myip() {
-  if [[ $1 == "help" ]]; then
-    printf "usage:\n"
-    printf "\tmyip - public IPv4 address\n"
-    return 1
   fi
 }
