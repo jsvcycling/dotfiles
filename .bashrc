@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Load helper files.
-for file in ~/.{aliases,functions,exports}; do
+for file in ~/.{aliases,functions,extras,exports}; do
   if [[ -r "$file" ]] && [[ -f "$file" ]]; then
     source "$file"
   fi
