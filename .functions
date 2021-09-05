@@ -45,6 +45,19 @@ pubip() {
   curl http://icanhazip.org/
 }
 
+# Retrieve the name of the current git branch.
+show_git_branch() {
+  branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+
+  # If there are uncommited changes in the current branch, show an asterisk.
+  changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
+  if [[ $changes != 0 ]]; then
+    branch="${branch}*"
+  fi
+
+  printf "$branch"
+}
+
 # Compress a file or directory into a .tar.gz.
 targz() {
   if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
