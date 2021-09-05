@@ -9,6 +9,7 @@ configs:
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done; \
+	git update-index --skip-worktree $(CURDIR)/.gitconfig;
 
 scripts:
 	for file in $(shell find $(CURDIR)/bin); do \
