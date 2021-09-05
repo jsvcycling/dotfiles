@@ -54,7 +54,11 @@ show_git_branch() {
     branch="${branch}*"
   fi
 
-  printf "$branch"
+  if [[ -z $branch ]]; then
+    return 1
+  fi;
+
+  printf "($branch)"
 }
 
 # Compress a file or directory into a .tar.gz.
