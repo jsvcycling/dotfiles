@@ -9,7 +9,6 @@ dataurl() {
   fi
 
   local mimeType=$(file -b --mime-type "$1")
-  
   if [[ $mimeType == text/* ]]; then
     mimeType="${mimeType};charset=utf-8"
   fi
@@ -38,7 +37,7 @@ isup() {
 pubip() {
   if [[ $1 == "-h" || $1 == "--help" ]]; then
     printf "usage:\n"
-    printf "\tmyip - public IPv4 address\n"
+    printf "\tpubip - public IPv4 address\n"
     return 1
   fi
 
@@ -62,7 +61,7 @@ show_git_branch() {
 targz() {
   if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
     printf "usage:\n"
-    printf "\t targz [FILE] - create a new .tar.gz file for FILE\n"
+    printf "\ttargz [FILE] - create a new .tar.gz file for FILE\n"
     return 1
   fi
 
