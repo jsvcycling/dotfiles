@@ -61,6 +61,30 @@ show_git_branch() {
   printf "($branch)"
 }
 
+# Decode a string from a URL.
+urldecode() {
+  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+    printf "Usage: urldecode [input]\n\n"
+    printf "Fields:\n"
+    printf " input    The string to be decoded\n"
+    return 1
+  fi
+
+  python -c "import urllib.parse; print(urllib.parse.unquote(input()))" <<< $@
+}
+
+# Encode a string into URL-safe text.
+urlencode() {
+  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+    printf "Usage: urlencode [input]\n\n"
+    printf "Fields:\n"
+    printf " input    The string to be encoded\n"
+    return 1
+  fi
+
+  python -c "import urllib.parse; print(urllib.parse.quote(input()))" <<< $@
+}
+
 # Compress a file or directory into a .tar.gz.
 targz() {
   if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
@@ -81,15 +105,30 @@ targz() {
 # Retrieve weather for the current location.
 weather() {
   if [[ $1 == "-h" || $1 == "--help" ]]; then
-    printf "usage:\n"
-    printf "\tweather       - current weather and forecast\n"
-    printf "\tweather graph - weather graphs\n"
+    printf "Usage: weather [flags...] [location]\n\n"
+    printf "Fields:\n"
+    printf " location    The target location to use for lookup. If not provided, use IP\n"
+    printf "             geolocation.\n"
+    printf "\n"
+    printf "Flags:\n"
+    printf " -h, --help      Display this message\n"
+    printf " -g, --graph     Use v2.wttr.in to display the data as a graph (units will only\n"
+    printf "                 be diplayed in metric)\n"
     return 1
   fi
 
-  if [[ $1 == "graph" ]]; then
-    curl https://v2.wttr.in/
-  else
-    curl https://wttr.in/
+  # Switch to V2 if the data is requested in graph format.
+  local url=https://wttr.in/
+  if [[ $1 == "-g" || $1 == "--graph" ]]; then
+    url=https://v2.wttr.in/
+    shift;
   fi
+
+  # Check if a location is being provided.
+  if [[ $# -gt 0 ]]; then
+    location=$(urlencode \"$@\")
+    url=$url$location
+  fi
+
+  curl $url
 }
