@@ -86,7 +86,7 @@ if test $# -eq 0 ; then
         DAY=$(date +"%a")
         MONTH=$(date +"%b")
         DATE=$(date +"%d")
-        HOUR=$(date +"%H")
+        HOUR=$(date +"%H" | awk '{print ($1".")+0}')
         MINSEC=$(date +"%M:%S")
         YEAR=$(date +"%Y")
         TIMEZONE=$(date +"%z")
@@ -101,9 +101,9 @@ elif test $# -eq 1 ; then
     TIME=$(echo "$1" | cut -d ' ' -f 4)
     YEAR=$(echo "$1" | cut -d ' ' -f 5)
     TIMEZONE=$(echo "$1" | cut -d ' ' -f 6)
-    HOUR=$(echo "$TIME" | cut -d ':' -f 1)
-    MIN=$(echo "$TIME" | cut -d ':' -f 2)
-    SEC=$(echo "$TIME" | cut -d ':' -f 3)
+    HOUR=$(echo "$TIME" | cut -d ':' -f 1 | awk '{print ($1".")+0}')
+    MIN=$(echo "$TIME" | cut -d ':' -f 2 | awk '{print ($1".")+0}')
+    SEC=$(echo "$TIME" | cut -d ':' -f 3 | awk '{print ($1".")+0}')
     MINSEC=$(echo "${MIN}:${SEC}")
     unset TIME
     unset MIN
