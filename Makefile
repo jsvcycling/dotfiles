@@ -10,7 +10,7 @@ configs:
 		f=$$(basename $$file); \
 		ln -sfn $$file $(HOME)/$$f; \
 	done;
-	for dir in $(shell find $(CURDIR)/.config -type d); do \
+	@for dir in $(shell find $(CURDIR)/.config -type d); do \
 		d=$$(basename $$dir); \
 		ln -sfn $$dir $(HOME)/.config/$$d; \
 	done;
