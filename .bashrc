@@ -52,3 +52,6 @@ if [ -x /usr/bin/dircolors ]; then
 	alias fgrep='fgrep --color=auto'
 	alias egrep='egrep --color=auto'
 fi
+
+# load rust/cargo environment
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"

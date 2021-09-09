@@ -1,19 +1,30 @@
 #!/bin/bash
 
-# Use bash as our preferred shell.
-shell="$(which bash)";
-export SHELL="$shell";
+# select bash as our preferred shell
+shell="$(which bash)"
+export SHELL="$shell"
 
-# Use vim (or neovim, if installed) as our default editor.
-export EDITOR=vim;
-export EDITOR=vim;
-export TERMINAL="urxvt";
+# use current TTY for GPG password
+export GPG_TTY=$(tty)
 
-# Increase bash history file size.
-export HISTSIZE=5000000;
-export HISTFILESIZE=$HISTSIZE;
-export HISTCONTROL=ignoredups;
+# use vim (or neovim, if installed) as our default editor
+export EDITOR=vim
+export GIT_EDITOR=vim
+export TERMINAL="urxvt"
+export LESS=-FRX
 
-# Always use US English with UTF-8 where possible.
-export LANG="en_US.UTF-8";
-export LC_ALL=$LANG;
+# increase bash history file size
+export HISTSIZE=5000000
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoredups
+
+# use US English with UTF-8 where possible
+export LANG="en_US.UTF-8"
+export LC_ALL=$LANG
+
+# add local bin directory to PATH
+export PATH="$PATH:$HOME/.local/bin"
+
+# setup go environment and add to PATH
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
