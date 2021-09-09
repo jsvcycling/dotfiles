@@ -15,6 +15,13 @@ alias g=". gitdate && git" # Run `gitdate` before calling `git` to mask TZ.
 # ...
 
 # Some `ls` helpers.
-alias l="ls -lhF --color"
-alias la="ls -alhF --color"
-alias ls="command ls --color"
+if ls --color > /dev/null 2>&1; then
+	colorflag="--color"
+else
+	# used for macOS
+	colorflag="-G"
+fi
+
+alias l="ls -lhF $colorflag"
+alias la="ls -alhF $colorflag"
+alias ls="command ls $colorflag"
