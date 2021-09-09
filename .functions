@@ -2,158 +2,158 @@
 
 # Generate a base64 data-url of a file.
 dataurl() {
-  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
-    printf "Usage: dataurl [flags...] FILE\n"
-    printf "\n"
-    printf "Fields:\n"
-    printf " FILE    The file for which the data-url will be generated\n"
-    printf "\n"
-    printf "Flags:\n"
-    printf " -h, --help    Display this message\n"
-    return 1
-  fi
+	if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+		printf "Usage: dataurl [flags...] FILE\n"
+		printf "\n"
+		printf "Fields:\n"
+		printf " FILE    The file for which the data-url will be generated\n"
+		printf "\n"
+		printf "Flags:\n"
+		printf " -h, --help    Display this message\n"
+		return 1
+	fi
 
-  local mimeType=$(file -b --mime-type "$1")
-  if [[ $mimeType == text/* ]]; then
-    mimeType="${mimeType};charset=utf-8"
-  fi
+	local mimeType=$(file -b --mime-type "$1")
+	if [[ $mimeType == text/* ]]; then
+		mimeType="${mimeType};charset=utf-8"
+	fi
 
-  data=$(openssl base64 -in "$1" | tr -d '\n')
-  printf "data:${mimeType};base64,${data}\n"
+	data=$(openssl base64 -in "$1" | tr -d '\n')
+	printf "data:${mimeType};base64,${data}\n"
 }
 
 # Check if a URL is accessible.
 isup() {
-  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
-    printf "Usage: isup [flags...] TARGET\n"
-    printf "\n"
-    printf "Fields:\n"
-    printf " TARGET    The target URL to test\n"
-    printf "\n"
-    printf "Flags:\n"
-    printf " -h, --help    Display this message\n"
-    return 1
-  fi
+	if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+		printf "Usage: isup [flags...] TARGET\n"
+		printf "\n"
+		printf "Fields:\n"
+		printf " TARGET    The target URL to test\n"
+		printf "\n"
+		printf "Flags:\n"
+		printf " -h, --help    Display this message\n"
+		return 1
+	fi
 
-  if curl -s --head --request GET "$1" | grep "200 OK" > /dev/null; then
-    printf "$1 is down\n"
-  else
-    printf "$1 is up\n"
-  fi
+	if curl -s --head --request GET "$1" | grep "200 OK" > /dev/null; then
+		printf "$1 is down\n"
+	else
+		printf "$1 is up\n"
+	fi
 }
 
 
 # Retrieve current public IP address.
 pubip() {
-  if [[ $1 == "-h" || $1 == "--help" ]]; then
-    printf "Usage: pubip [flags...]\n"
-    printf "\n"
-    printf "Flags:\n"
-    printf " -h, --help    Display this message\n"
-    return 1
-  fi
+	if [[ $1 == "-h" || $1 == "--help" ]]; then
+		printf "Usage: pubip [flags...]\n"
+		printf "\n"
+		printf "Flags:\n"
+		printf " -h, --help    Display this message\n"
+		return 1
+	fi
 
-  curl http://icanhazip.org/
+	curl http://icanhazip.org/
 }
 
 # Retrieve the name of the current git branch.
 show_git_branch() {
-  branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+	branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
 
-  # If there are uncommited changes in the current branch, show an asterisk.
-  changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
-  if [[ $changes != 0 ]]; then
-    branch="${branch}*"
-  fi
+	# If there are uncommited changes in the current branch, show an asterisk.
+	changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
+	if [[ $changes != 0 ]]; then
+		branch="${branch}*"
+	fi
 
-  if [[ -z $branch ]]; then
-    return 1
-  fi;
+	if [[ -z $branch ]]; then
+		return 1
+	fi;
 
-  printf "($branch)"
+	printf "($branch)"
 }
 
 # Decode a string from a URL.
 urldecode() {
-  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
-    printf "Usage: urldecode [flags...] INPUT\n"
-    printf "\n"
-    printf "Fields:\n"
-    printf " INPUT    The string to be decoded\n"
-    printf "\n"
-    printf " -h, --help    Display this message\n"
-    return 1
-  fi
+	if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+		printf "Usage: urldecode [flags...] INPUT\n"
+		printf "\n"
+		printf "Fields:\n"
+		printf " INPUT    The string to be decoded\n"
+		printf "\n"
+		printf " -h, --help    Display this message\n"
+		return 1
+	fi
 
-  python -c "import urllib.parse; print(urllib.parse.unquote(input()))" <<< $@
+	python -c "import urllib.parse; print(urllib.parse.unquote(input()))" <<< $@
 }
 
 # Encode a string into URL-safe text.
 urlencode() {
-  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
-    printf "Usage: urlencode [flags...] INPUT\n"
-    printf "\n"
-    printf "Fields:\n"
-    printf " INPUT    The string to be encoded\n"
-    printf "\n"
-    printf "Flags:\n"
-    printf " -h, --help    Display this message\n"
-    return 1
-  fi
+	if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+		printf "Usage: urlencode [flags...] INPUT\n"
+		printf "\n"
+		printf "Fields:\n"
+		printf " INPUT    The string to be encoded\n"
+		printf "\n"
+		printf "Flags:\n"
+		printf " -h, --help    Display this message\n"
+		return 1
+	fi
 
-  python -c "import urllib.parse; print(urllib.parse.quote(input()))" <<< $@
+	python -c "import urllib.parse; print(urllib.parse.quote(input()))" <<< $@
 }
 
 # Compress a file or directory into a .tar.gz.
 targz() {
-  if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
-    printf "Usage: targz [flags...] TARGET\n"
-    printf "\n"
-    printf "Fields:\n"
-    printf " TARGET    The target file or directory to compress\n"
-    printf "\n"
-    printf "Flags:\n"
-    printf " -h, --help    Display this message\n"
-    return 1
-  fi
+	if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+		printf "Usage: targz [flags...] TARGET\n"
+		printf "\n"
+		printf "Fields:\n"
+		printf " TARGET    The target file or directory to compress\n"
+		printf "\n"
+		printf "Flags:\n"
+		printf " -h, --help    Display this message\n"
+		return 1
+	fi
 
-  local tmpFile="${1%/}.tar"
-  tar -cvf "${tmpFile}" "${1}" || return 1
+	local tmpFile="${1%/}.tar"
+	tar -cvf "${tmpFile}" "${1}" || return 1
 
-  printf "Compressing .tar using \`gzip\`...\n"
-  gzip -v "${tmpFile}" || return 1
-  [ -f "${tmpFile}" ] && rm "${tmpFile}"
-  printf "${tmpFile}.gz created successfully.\n"
+	printf "Compressing .tar using \`gzip\`...\n"
+	gzip -v "${tmpFile}" || return 1
+	[ -f "${tmpFile}" ] && rm "${tmpFile}"
+	printf "${tmpFile}.gz created successfully.\n"
 }
 
 # Retrieve weather for the current location.
 weather() {
-  if [[ $1 == "-h" || $1 == "--help" ]]; then
-    printf "Usage: weather [flags...] [location]\n"
-    printf "\n"
-    printf "Fields:\n"
-    printf " location    The target location to use for lookup. If not provided, use IP\n"
-    printf "             geolocation.\n"
-    printf "\n"
-    printf "Flags:\n"
-    printf " -h, --help      Display this message\n"
-    printf " -g, --graph     Use v2.wttr.in to display the data as a graph (units will only\n"
-    printf "                 be diplayed in metric)\n"
-    return 1
-  fi
+	if [[ $1 == "-h" || $1 == "--help" ]]; then
+		printf "Usage: weather [flags...] [location]\n"
+		printf "\n"
+		printf "Fields:\n"
+		printf " location    The target location to use for lookup. If not provided, use IP\n"
+		printf "             geolocation.\n"
+		printf "\n"
+		printf "Flags:\n"
+		printf " -h, --help     Display this message\n"
+		printf " -g, --graph    Use v2.wttr.in to display the data as a graph (units will only\n"
+		printf "                be diplayed in metric)\n"
+		return 1
+	fi
 
-  # Switch to V2 if the data is requested in graph format.
-  local url=https://wttr.in/
-  if [[ $1 == "-g" || $1 == "--graph" ]]; then
-    url=https://v2.wttr.in/
-    shift;
-  fi
+	# Switch to V2 if the data is requested in graph format.
+	local url=https://wttr.in/
+	if [[ $1 == "-g" || $1 == "--graph" ]]; then
+		url=https://v2.wttr.in/
+		shift;
+	fi
 
-  # Check if a location is being provided.
-  if [[ $# -gt 0 ]]; then
-    location=$(urlencode \"$@\")
-    url=$url$location
-  fi
+	# Check if a location is being provided.
+	if [[ $# -gt 0 ]]; then
+		location=$(urlencode \"$@\")
+		url=$url$location
+	fi
 
-  curl $url
+	curl $url
 }
