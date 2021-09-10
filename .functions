@@ -22,6 +22,34 @@ dataurl() {
 	printf "data:${mimeType};base64,${data}\n"
 }
 
+# Use KeyCDN to get some geographic data about an IP or hostname.
+geoip() {
+	if [[ $1 == '-h' || $1 == '--help' ]]; then
+		printf "Usage: geoip [flags...] target\n"
+		printf "\n"
+		printf "Fields:\n"
+		printf " target    The IP address or hostname to check (uses current public IP if not\n"
+		printf "           provided)\n"
+		printf "\n"
+		printf "Flags:\n"
+		printf " -h, --help    Display this message\n"
+		return 1
+	fi
+
+	if ! command -v jq &> /dev/null; then
+		printf "jq must be installed\n"
+		return 1
+	fi
+
+	# use current public IP address if an IP/hostname wasn't provided
+	target=$1
+	if [[ -z $target ]]; then
+		target=$(pubip)
+	fi
+
+	curl -s -H "User-Agent: keycdn-tools:http://localhost" https://tools.keycdn.com/geo.json?host=$target | jq
+}
+
 # Check if a URL is accessible.
 isup() {
 	if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
@@ -53,7 +81,7 @@ pubip() {
 		return 1
 	fi
 
-	curl http://icanhazip.org/
+	curl -s http://icanhazip.org/
 }
 
 # Retrieve the name of the current git branch.
