@@ -8,8 +8,14 @@ export SHELL="$shell"
 export GPG_TTY=$(tty)
 
 # use vim (or neovim, if installed) as our default editor
-export EDITOR=vim
-export GIT_EDITOR=vim
+if command -v nvim &> /dev/null; then
+	export EDITOR=nvim
+	export GIT_EDITOR=nvim
+else
+	export EDITOR=vim
+	export GIT_EDITOR=vim
+fi
+
 export TERMINAL="urxvt"
 export LESS=-FRX
 
