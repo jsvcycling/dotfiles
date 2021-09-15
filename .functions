@@ -113,7 +113,7 @@ urldecode() {
 		return 1
 	fi
 
-	python -c "import urllib.parse; print(urllib.parse.unquote(input()))" <<< $@
+	python3 -c "import urllib.parse; print(urllib.parse.unquote(input()))" <<< $@
 }
 
 # Encode a string into URL-safe text.
@@ -129,7 +129,7 @@ urlencode() {
 		return 1
 	fi
 
-	python -c "import urllib.parse; print(urllib.parse.quote(input()))" <<< $@
+	python3 -c "import urllib.parse; print(urllib.parse.quote(input()))" <<< $@
 }
 
 # Compress a file or directory into a .tar.gz.
