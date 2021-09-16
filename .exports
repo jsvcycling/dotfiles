@@ -34,9 +34,3 @@ export PATH="$PATH:$HOME/.local/bin"
 # setup go environment and add to PATH
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
-
-# load rbenv if installed
-if command -v rbenv &> /dev/null; then
-	export PATH="$PATH:$HOME/.rbenv/bin"
-	eval "$(rbenv init -)"
-fi

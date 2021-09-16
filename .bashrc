@@ -55,3 +55,8 @@ fi
 
 # load rust/cargo environment
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+# load rbenv if installed
+if command -v rbenv &> /dev/null; then
+	eval "$(rbenv init -)"
+fi
