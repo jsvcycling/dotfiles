@@ -86,7 +86,15 @@ pubip() {
 
 # Retrieve the name of the current git branch.
 show_git_branch() {
-	branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+	ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
+	local ret=$?
+
+	if [[ $ret != 0 ]]; then
+		[[ $ret == 128 ]] && return
+		ref=$(git rev-parse --short HEAD 2> /dev/null) || return
+	fi
+
+	branch=${ref#refs/heads/}
 
 	# If there are uncommited changes in the current branch, show an asterisk.
 	changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
