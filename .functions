@@ -84,6 +84,21 @@ pubip() {
 	curl -s http://icanhazip.org/
 }
 
+qrcode() {
+	if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+		printf "Usage: qrcode [flags...] [DATA]\n"
+		printf "\n"
+		printf "Fields:\n"
+		printf " DATA    The data to encode into the QR code\n"
+		printf "\n"
+		printf "Flags:\n"
+		printf " -h, --help    Display this message\n"
+		return 1
+	fi
+
+	curl -s https://qrcode.show/$@
+}
+
 # Retrieve the name of the current git branch.
 show_git_branch() {
 	ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
