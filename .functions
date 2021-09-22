@@ -22,6 +22,33 @@ dataurl() {
 	printf "data:${mimeType};base64,${data}\n"
 }
 
+# Compress FLAC files into MP3.
+flac2mp3() {
+	if [[ $1 == "-h" || $1 == "--help" ]]; then
+		printf "Usage: flac2mp3 [flags...]\n"
+		printf "\n"
+		printf "Flags:\n"
+		printf " -h, --help    Display this message\n"
+		return 1
+	fi
+
+	if ! command -v ffmpeg &> /dev/null; then
+		printf "ffmpeg must be installed\n"
+		return 1
+	fi
+
+	mkdir mp3
+
+	# Use `parallel` if found, otherwise use loop.
+	if command -v parallel &> /dev/null; then
+		parallel ffmpeg -i {} -aq 0 mp3/{.}.mp3 ::: ./*.flac
+	else
+		for f in $(find . -type f -name "*.flac"); do
+			< /dev/null ffmpeg -i "$f" -aq 0 "mp3/${f[@]/%flac/mp3}"
+		done
+	fi
+}
+
 # Use KeyCDN to get some geographic data about an IP or hostname.
 geoip() {
 	if [[ $1 == '-h' || $1 == '--help' ]]; then
