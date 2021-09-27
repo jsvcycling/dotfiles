@@ -62,7 +62,7 @@ lua <<EOF
 		buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 	end
 
-	local servers = { 'gopls', 'rust_analyzer' }
+	local servers = { 'gopls', 'rust_analyzer', 'pyright' }
 	for _, lsp in ipairs(servers) do
 		lspconfig[lsp].setup{
 			on_attach = on_attach
