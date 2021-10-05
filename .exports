@@ -34,3 +34,7 @@ export PATH="$PATH:$HOME/.local/bin"
 # setup go environment and add to PATH
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
+
+# setup deno environment and add to PATH
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$PATH:$DENO_INSTALL/bin"
