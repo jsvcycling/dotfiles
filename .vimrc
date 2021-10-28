@@ -14,6 +14,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+Plug 'jparise/vim-graphql'
+
 if has('nvim')
 	Plug 'neovim/nvim-lspconfig'
 endif
@@ -62,7 +64,7 @@ lua <<EOF
 		buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 	end
 
-	local servers = { 'denols', 'gopls', 'pyright', 'rust_analyzer', 'solargraph' }
+	local servers = { 'clangd', 'denols', 'gopls', 'graphql', 'pyright', 'rust_analyzer', 'solargraph' }
 	for _, lsp in ipairs(servers) do
 		lspconfig[lsp].setup{
 			on_attach = on_attach

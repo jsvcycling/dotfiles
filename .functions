@@ -229,7 +229,8 @@ weather() {
 
 	# Check if a location is being provided.
 	if [[ $# -gt 0 ]]; then
-		location=$(urlencode \"$@\")
+		location=$(urlencode "$@")
+		location=$(echo $location | sed "s/%22//g")
 		url=$url$location
 	fi
 
