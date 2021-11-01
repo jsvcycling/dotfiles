@@ -22,3 +22,4 @@ vnoremap cc :action CommentByLineComment<CR>
 nnoremap ,a :action GotoAction<CR>
 vnoremap ,a :action GotoAction<CR>
 
+sethandler a:vim
