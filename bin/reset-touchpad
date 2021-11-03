@@ -1,0 +1,4 @@
+#!/bin/bash
+
+modprobe -r hid-multitouch
+modprobe hid-multitouch
