@@ -28,6 +28,9 @@ export HISTCONTROL=ignoredups
 export LANG="en_US.UTF-8"
 export LC_ALL=$LANG
 
+# add local cargo bin directory to PATH
+export PATH="$PATH:$HOME/.cargo/bin"
+
 # add local bin directory to PATH
 export PATH="$PATH:$HOME/.local/bin"
 
@@ -38,3 +41,10 @@ export PATH="$PATH:$GOPATH/bin"
 # setup deno environment and add to PATH
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$PATH:$DENO_INSTALL/bin"
+
+# Tell docker-compose to use Podman
+export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+
+# Load `flyctl` (for https://fly.io)
+export FLYCTL_INSTALL="/home/jsvcycling/.fly"
+export PATH="$PATH:$FLYCTL_INSTALL/bin"

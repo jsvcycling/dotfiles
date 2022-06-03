@@ -16,6 +16,8 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'jparise/vim-graphql'
 
+Plug 'ziglang/zig.vim'
+
 if has('nvim')
 	Plug 'neovim/nvim-lspconfig'
 endif
