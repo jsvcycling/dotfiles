@@ -42,9 +42,12 @@ export PATH="$PATH:$GOPATH/bin"
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$PATH:$DENO_INSTALL/bin"
 
-# Tell docker-compose to use Podman
+# add cargo to PATH
+export PATH="$PATH:$HOME/.cargo/bin"
+
+# use podman for docker-compose
 export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 
-# Load `flyctl` (for https://fly.io)
+# Setup flyctl
 export FLYCTL_INSTALL="/home/jsvcycling/.fly"
 export PATH="$PATH:$FLYCTL_INSTALL/bin"

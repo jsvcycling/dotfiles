@@ -15,7 +15,6 @@ Plug 'easymotion/vim-easymotion'
 " Plug 'junegunn/fzf.vim'
 
 Plug 'jparise/vim-graphql'
-
 Plug 'ziglang/zig.vim'
 
 if has('nvim')
@@ -76,5 +75,4 @@ EOF
 nnoremap ff <cmd>lua require('telescope.builtin').find_files()<CR>
 nnoremap fg <cmd>lua require('telescope.builtin').live_grep()<CR>
 nnoremap fb <cmd>lua require('telescope.builtin').buffers()<CR>
-
 endif
