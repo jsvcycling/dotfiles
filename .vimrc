@@ -11,8 +11,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'majutsushi/tagbar'
 Plug 'easymotion/vim-easymotion'
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 
 Plug 'jparise/vim-graphql'
 
@@ -20,6 +20,8 @@ Plug 'ziglang/zig.vim'
 
 if has('nvim')
 	Plug 'neovim/nvim-lspconfig'
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 endif
 
 call plug#end()
@@ -41,9 +43,6 @@ let g:netrw_banner = 0
 
 " Setup Tagbar
 map <F8> :ToggleTagbar<CR>
-
-" Setup FZF
-map ; :GFiles -c -o --exclude-standard<CR>
 
 " Setup neovim LSP client
 if has('nvim')
@@ -73,4 +72,9 @@ lua <<EOF
 		}
 	end
 EOF
+
+nnoremap ff <cmd>lua require('telescope.builtin').find_files()<CR>
+nnoremap fg <cmd>lua require('telescope.builtin').live_grep()<CR>
+nnoremap fb <cmd>lua require('telescope.builtin').buffers()<CR>
+
 endif
