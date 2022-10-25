@@ -6,13 +6,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'itchyny/lightline.vim'
 Plug 'majutsushi/tagbar'
 Plug 'easymotion/vim-easymotion'
-
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
 
 Plug 'jparise/vim-graphql'
 Plug 'ziglang/zig.vim'
@@ -21,6 +17,8 @@ if has('nvim')
 	Plug 'neovim/nvim-lspconfig'
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+
+	Plug 'nvim-tree/nvim-tree.lua'
 endif
 
 call plug#end()
@@ -34,18 +32,22 @@ filetype indent on
 
 set completeopt=menuone,noinsert,noselect
 
-" Setup NERDTree
-map <C-o> :NERDTreeToggle<CR>
-
 " Setup netrw
 let g:netrw_banner = 0
 
 " Setup Tagbar
 map <F8> :ToggleTagbar<CR>
 
-" Setup neovim LSP client
 if has('nvim')
+
 lua <<EOF
+	-- Setup nvim-tree.
+	vim.g.loaded_netrw = 1
+	vim.g.loaded_netrwPlugin = 1
+
+	require('nvim-tree').setup()
+
+	-- Setup LSP.
 	local lspconfig = require('lspconfig')
 
 	local on_attach = function(_, bufnr)
@@ -64,13 +66,17 @@ lua <<EOF
 		buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 	end
 
-	local servers = { 'clangd', 'denols', 'gopls', 'graphql', 'pyright', 'rust_analyzer', 'solargraph' }
+	local servers = { 'clangd', 'denols', 'gopls', 'graphql', 'pyright', 'rust_analyzer', 'solargraph' , 'zls' }
 	for _, lsp in ipairs(servers) do
 		lspconfig[lsp].setup{
 			on_attach = on_attach
 		}
 	end
 EOF
+
+" Setup nvim-tree toggle.
+map <C-o> :NvimTreeToggle<CR>
+
 
 nnoremap ff <cmd>lua require('telescope.builtin').find_files()<CR>
 nnoremap fg <cmd>lua require('telescope.builtin').live_grep()<CR>
