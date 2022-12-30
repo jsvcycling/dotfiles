@@ -24,11 +24,12 @@ if [ -n "$force_color_prompt" ]; then
 	fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-  PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(show_git_branch)\[\033[00m\]\$ '
-else
-  PS1='\u@\h:\w$(show_git_branch)\$ '
-fi
+# if [ "$color_prompt" = yes ]; then
+#   PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(show_git_branch)\[\033[00m\]\$ '
+# else
+#   PS1='\u@\h:\w$(show_git_branch)\$ '
+# fi
+PS1='\$ '
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
