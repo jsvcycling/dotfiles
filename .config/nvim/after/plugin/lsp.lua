@@ -25,5 +25,15 @@ require("mason-lspconfig").setup({
     },
 })
 
+local lspconfig = require("lspconfig")
+
 local lua_opts = lsp_zero.nvim_lua_ls()
-require("lspconfig").lua_ls.setup(lua_opts)
+lspconfig.lua_ls.setup(lua_opts)
+
+-- Disable inlay hints in ZLS because they seem to cause an panic.
+-- ref: https://github.com/zigtools/zls/issues/1349
+lspconfig.zls.setup({
+    inlay_hints = {
+        enabled = false,
+    },
+})

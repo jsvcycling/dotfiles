@@ -24,6 +24,10 @@ require("lazy").setup({
         name = "rose-pine",
     },
     {
+        "folke/tokyonight.nvim",
+        name = "tokyonight",
+    },
+    {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
     },
