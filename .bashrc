@@ -61,3 +61,7 @@ fi
 if command -v rbenv &> /dev/null; then
 	eval "$(rbenv init -)"
 fi
+
+if command -v opam &> /dev/null; then
+	eval "$(opam env)"
+fi
