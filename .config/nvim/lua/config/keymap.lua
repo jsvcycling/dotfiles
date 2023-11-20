@@ -7,4 +7,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzv")
 vim.keymap.set("n", "N", "Nzzv")
 
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+
 vim.keymap.set("n", "Q", "<nop>")
