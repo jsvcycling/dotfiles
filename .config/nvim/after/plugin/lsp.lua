@@ -26,7 +26,7 @@ require("mason-lspconfig").setup({
         "pylyzer",
         "rust_analyzer",
         "texlab",
-        "zls"
+        "zls",
     },
 
     handlers = {
