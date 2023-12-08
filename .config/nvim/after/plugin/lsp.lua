@@ -18,7 +18,16 @@ end)
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-    ensure_installed = { "elixirls", "lua_ls", "pylyzer", "rust_analyzer", "zls" },
+    ensure_installed = {
+        "elixirls",
+        "julials",
+        "lua_ls",
+        "ocamllsp",
+        "pylyzer",
+        "rust_analyzer",
+        "texlab",
+        "zls"
+    },
 
     handlers = {
         lsp_zero.default_setup,
