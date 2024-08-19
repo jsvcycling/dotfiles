@@ -1,2 +1,4 @@
 .extras
 .gitconfig
+
+.config/nvim/lazy-lock.json
